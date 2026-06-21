@@ -17,6 +17,23 @@ You should always prioritize production-quality patterns over quick hacks.
 
 ---
 
+## 🔒 Security Requirements
+
+Security is non-negotiable. All code must:
+
+* Validate and sanitize every input at system boundaries — never trust client data
+* Use parameterized queries only — no raw SQL string concatenation (Prisma handles this)
+* Never expose internal errors, stack traces, or sensitive data in API responses
+* Enforce authentication on every protected endpoint — no exceptions
+* Store secrets in environment variables only — never hardcode or log them
+* Apply rate limiting on all public-facing endpoints
+* Follow OWASP Top 10 guidelines — prevent SQLi, XSS, CSRF, broken auth, and insecure direct object references
+* Use HTTPS-only headers (HSTS, CSP, X-Frame-Options) in production
+* Hash all passwords with bcrypt (cost ≥ 12) — never store plaintext
+* Sanitize any data rendered to the DOM to prevent XSS
+
+---
+
 ## Context
 Schema and seed data exist (Prompt 03). Now build the complete round-up business logic layer and expose the API endpoints the dashboard will consume.
 

@@ -16,3 +16,8 @@ export const me = asyncHandler(async (req: Request, res: Response) => {
   const user = await authService.getMe(req.user!.userId)
   res.json(user)
 })
+
+export const onboarding = asyncHandler(async (req: Request, res: Response) => {
+  await authService.completeOnboarding(req.user!.userId)
+  res.json({ success: true })
+})

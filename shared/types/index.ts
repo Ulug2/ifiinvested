@@ -101,3 +101,8 @@ export interface FinnResponse {
   message: string
   trigger: FinnTrigger
 }
+
+export interface TransactionPage {
+  transactions: Transaction[]
+  nextCursor: string | null
+}

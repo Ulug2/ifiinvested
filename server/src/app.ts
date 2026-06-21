@@ -12,6 +12,7 @@ import investmentsRouter from './routes/investments'
 import gamificationRouter from './routes/gamification'
 import finnRouter from './routes/finn'
 import { requireAuth } from './middleware/auth'
+import devRouter from './routes/dev'
 
 export function createApp() {
   const app = express()
@@ -36,6 +37,11 @@ export function createApp() {
   app.use('/api/investments', requireAuth, investmentsRouter)
   app.use('/api/gamification', requireAuth, gamificationRouter)
   app.use('/api/finn', requireAuth, finnRouter)
+
+  // Dev-only routes — never exposed in production
+  if (process.env.NODE_ENV !== 'production') {
+    app.use('/api/dev', devRouter)
+  }
 
   app.use(errorHandler)
 

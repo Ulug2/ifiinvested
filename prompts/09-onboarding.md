@@ -17,6 +17,23 @@ You should always prioritize production-quality patterns over quick hacks.
 
 ---
 
+## 🔒 Security Requirements
+
+Security is non-negotiable. All code must:
+
+* Validate and sanitize every input at system boundaries — never trust client data
+* Use parameterized queries only — no raw SQL string concatenation (Prisma handles this)
+* Never expose internal errors, stack traces, or sensitive data in API responses
+* Enforce authentication on every protected endpoint — no exceptions
+* Store secrets in environment variables only — never hardcode or log them
+* Apply rate limiting on all public-facing endpoints
+* Follow OWASP Top 10 guidelines — prevent SQLi, XSS, CSRF, broken auth, and insecure direct object references
+* Use HTTPS-only headers (HSTS, CSP, X-Frame-Options) in production
+* Hash all passwords with bcrypt (cost ≥ 12) — never store plaintext
+* Sanitize any data rendered to the DOM to prevent XSS
+
+---
+
 ## Context
 Full app is functional (Prompts 00–08). Now build the onboarding — the most critical retention moment. New users land here after signup. Goal: emotional hook in the first 30 seconds. No friction, no bank linking, just Finn + wonder.
 

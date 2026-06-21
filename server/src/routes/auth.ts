@@ -8,5 +8,6 @@ const router = Router()
 router.post('/signup', validate(signupSchema), authController.signup)
 router.post('/login', validate(loginSchema), authController.login)
 router.get('/me', requireAuth, authController.me)
+router.patch('/onboarding', requireAuth, authController.onboarding)
 
 export default router

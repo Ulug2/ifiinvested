@@ -8,13 +8,106 @@ datasource db {
 }
 
 model User {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  passwordHash String
-  xp           Int      @default(0)
-  level        Int      @default(1)
-  streakCount  Int      @default(0)
-  lastActiveAt DateTime @default(now())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id              String   @id @default(cuid())
+  email           String   @unique
+  passwordHash    String
+  xp              Int      @default(0)
+  level           Int      @default(1)
+  streakCount     Int      @default(0)
+  lastActiveAt    DateTime @default(now())
+  onboardingDone  Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  transactions       Transaction[]
+  roundUps           RoundUp[]
+  virtualInvestments VirtualInvestment[]
+  milestones         Milestone[]
+  finnEvents         FinnEvent[]
+}
+
+model Transaction {
+  id                String   @id @default(cuid())
+  userId            String
+  amount            Float
+  merchant          String
+  category          String
+  date              DateTime
+  includedInRoundUp Boolean  @default(true)
+  createdAt         DateTime @default(now())
+
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  roundUp RoundUp?
+
+  @@index([userId, date])
+}
+
+model RoundUp {
+  id            String        @id @default(cuid())
+  userId        String
+  transactionId String        @unique
+  amount        Float
+  status        RoundUpStatus @default(PENDING)
+  createdAt     DateTime      @default(now())
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transaction Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+}
+
+enum RoundUpStatus {
+  PENDING
+  COMMITTED
+}
+
+model VirtualInvestment {
+  id             String   @id @default(cuid())
+  userId         String
+  amount         Float
+  committedAt    DateTime @default(now())
+  simulatedValue Float
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Milestone {
+  id         String        @id @default(cuid())
+  userId     String
+  type       MilestoneType
+  threshold  Float
+  achievedAt DateTime      @default(now())
+  seenAt     DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, type, threshold])
+  @@index([userId])
+}
+
+enum MilestoneType {
+  INVESTED_AMOUNT
+  STREAK_DAYS
+}
+
+model FinnEvent {
+  id          String    @id @default(cuid())
+  userId      String
+  state       FinnState
+  message     String
+  triggeredAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, triggeredAt])
+}
+
+enum FinnState {
+  HAPPY
+  NEUTRAL
+  JUDGING
+  EXCITED
+  MOTIVATIONAL
 }
