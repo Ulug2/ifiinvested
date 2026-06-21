@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import clsx from 'clsx'
 import s from './ProgressBar.module.css'
 
@@ -13,6 +14,16 @@ interface ProgressBarProps {
 
 export function ProgressBar({ value, color = 'green', animated = false, label, className }: ProgressBarProps) {
   const clamped = Math.min(100, Math.max(0, value))
+  // Start at 0 on mount when animated so CSS transition fires from 0 → target
+  const [displayWidth, setDisplayWidth] = useState(animated ? 0 : clamped)
+
+  useEffect(() => {
+    if (animated) {
+      const id = requestAnimationFrame(() => setDisplayWidth(clamped))
+      return () => cancelAnimationFrame(id)
+    }
+    setDisplayWidth(clamped)
+  }, [clamped, animated])
 
   return (
     <div className={clsx(s.wrapper, s[color], className)}>
@@ -23,7 +34,7 @@ export function ProgressBar({ value, color = 'green', animated = false, label, c
         </div>
       )}
       <div className={s.track} role="progressbar" aria-valuenow={clamped} aria-valuemin={0} aria-valuemax={100}>
-        <div className={clsx(s.fill, animated && s.animated)} style={{ width: `${clamped}%` }} />
+        <div className={clsx(s.fill, animated && s.animated)} style={{ width: `${displayWidth}%` }} />
       </div>
     </div>
   )

@@ -31,7 +31,11 @@
 .cyan  .fill { background: var(--color-accent-cyan);  box-shadow: 0 0 8px rgba(0, 212, 255, 0.5); }
 .gold  .fill { background: var(--color-gold);          box-shadow: 0 0 8px rgba(255, 209, 102, 0.5); }
 
-/* ── Animated shimmer ── */
+/* ── Animated: 600ms mount fill + shimmer ── */
+.fill.animated {
+  transition: width 600ms ease;
+}
+
 .fill.animated::after {
   content: '';
   position: absolute;
