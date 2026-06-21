@@ -1,0 +1,52 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.label {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.track {
+  width: 100%;
+  height: 6px;
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width var(--transition-slow);
+  position: relative;
+}
+
+/* ── Colors ── */
+.green .fill { background: var(--color-accent-green); box-shadow: 0 0 8px rgba(0, 255, 135, 0.5); }
+.cyan  .fill { background: var(--color-accent-cyan);  box-shadow: 0 0 8px rgba(0, 212, 255, 0.5); }
+.gold  .fill { background: var(--color-gold);          box-shadow: 0 0 8px rgba(255, 209, 102, 0.5); }
+
+/* ── Animated shimmer ── */
+.fill.animated::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.8s ease-in-out infinite;
+  border-radius: inherit;
+}
+
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}

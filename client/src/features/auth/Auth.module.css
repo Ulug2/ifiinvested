@@ -1,0 +1,97 @@
+.page {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+  background: var(--color-bg-primary);
+}
+
+.container {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.brand {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.logo {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-black);
+  color: var(--color-accent-green);
+  letter-spacing: -0.03em;
+  line-height: var(--line-height-tight);
+}
+
+.tagline {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.heading {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.errorBanner {
+  padding: var(--space-3) var(--space-4);
+  background: rgba(255, 92, 92, 0.1);
+  border: 1px solid rgba(255, 92, 92, 0.3);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+}
+
+.footer {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.link {
+  color: var(--color-accent-green);
+  font-weight: var(--font-weight-medium);
+  transition: opacity var(--transition-fast);
+  cursor: pointer;
+}
+.link:hover { opacity: 0.8; }
+
+.strengthTrack {
+  height: 3px;
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.strengthFill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--color-accent-green);
+  transition: width var(--transition-base);
+}
+
+.strengthLabel {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}

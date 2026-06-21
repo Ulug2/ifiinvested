@@ -1,0 +1,38 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+/* ── Sizes ── */
+.sm {
+  height: 1.25rem;
+  padding: 0 var(--space-2);
+  font-size: var(--font-size-xs);
+}
+.md {
+  height: 1.5rem;
+  padding: 0 var(--space-3);
+  font-size: var(--font-size-sm);
+}
+
+/* ── Variants ── */
+.success {
+  background: rgba(0, 255, 135, 0.12);
+  color: var(--color-accent-green);
+}
+.warning {
+  background: rgba(255, 209, 102, 0.12);
+  color: var(--color-gold);
+}
+.info {
+  background: rgba(0, 212, 255, 0.12);
+  color: var(--color-accent-cyan);
+}
+.neutral {
+  background: var(--color-bg-elevated);
+  color: var(--color-text-secondary);
+}
