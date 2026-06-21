@@ -1,9 +1,9 @@
 import { Router } from 'express'
+import * as investmentController from '../controllers/investment.controller'
 
 const router = Router()
 
-// Implemented in Prompt 04
-router.get('/portfolio', (_req, res) => res.status(501).json({ error: 'Not implemented' }))
-router.get('/projection', (_req, res) => res.status(501).json({ error: 'Not implemented' }))
+router.get('/portfolio', investmentController.portfolio)
+router.get('/projection', investmentController.projection)
 
 export default router

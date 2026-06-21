@@ -1,8 +1,8 @@
 import { Router } from 'express'
+import * as transactionController from '../controllers/transaction.controller'
 
 const router = Router()
 
-// Implemented in Prompt 04
-router.get('/', (_req, res) => res.status(501).json({ error: 'Not implemented' }))
+router.get('/', transactionController.list)
 
 export default router
