@@ -13,7 +13,11 @@ export const loginSchema = z.object({
 
 export function validate(schema: ZodSchema) {
   return (req: Request, _res: Response, next: NextFunction) => {
-    req.body = schema.parse(req.body)
-    next()
+    try {
+      req.body = schema.parse(req.body)
+      next()
+    } catch (err) {
+      next(err)
+    }
   }
 }

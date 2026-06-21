@@ -24,8 +24,8 @@ export function requireAuth(req: Request, _res: Response, next: NextFunction): v
   if (!secret) throw new Error('JWT_SECRET not configured')
 
   try {
-    const payload = jwt.verify(token, secret) as AuthPayload
-    req.user = payload
+    const decoded = jwt.verify(token, secret) as { sub: string; email: string }
+    req.user = { userId: decoded.sub, email: decoded.email }
     next()
   } catch {
     next(createError('Unauthorized', 401))
